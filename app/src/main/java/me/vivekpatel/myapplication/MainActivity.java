@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ActivityMainBinding binding;
-    private ArrayList<String> allCities;
+    private ArrayList<String> allItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,27 +31,27 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         setupCities();
-        setupAdapter(allCities);
+        setupAdapter(allItems);
         setupListeners();
     }
 
     private void setupCities() {
-        // setup allCities
-        allCities = new ArrayList<>();
-        allCities.add("paris");
-        allCities.add("tijuana");
-        allCities.add("milan");
-        allCities.add("rome");
-        allCities.add("amsterdam");
-        allCities.add("dubai");
+        // setup allItems
+        allItems = new ArrayList<>();
+        allItems.add("paris");
+        allItems.add("tijuana");
+        allItems.add("milan");
+        allItems.add("rome");
+        allItems.add("amsterdam");
+        allItems.add("dubai");
 
         // setup MultiAutocompleteTextView
         binding.multiview.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
     }
 
-    private void setupAdapter(ArrayList<String> cities) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, cities);
+    private void setupAdapter(ArrayList<String> Items) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, Items);
         binding.multiview.setAdapter(adapter);
     }
 
@@ -75,22 +75,22 @@ public class MainActivity extends AppCompatActivity {
                 if (text.isEmpty()) {
                     // if textBox is empty
                     // reset adapter
-                    setupAdapter(allCities);
+                    setupAdapter(allItems);
 
                 } else if (text.contains(",") && text.endsWith(",")) {
                     // get all selected city first
-                    ArrayList<String> selectedCities = getSelectedCities(text);
-                    ArrayList<String> unSelectedCities = getUnselectedCities(selectedCities);
-                    setupAdapter(unSelectedCities);
+                    ArrayList<String> selectedItems = getSelectedItems(text);
+                    ArrayList<String> unSelectedItems = getUnselectedItems(selectedItems);
+                    setupAdapter(unSelectedItems);
                 }
             }
         });
     }
 
-    public ArrayList<String> getSelectedCities(String text) {
-        ArrayList<String> cities = new ArrayList<>();
+    public ArrayList<String> getSelectedItems(String text) {
+        ArrayList<String> items = new ArrayList<>();
 
-        // split cities
+        // split items
         String[] cityArr = text.split(",");
 
         // remove starting & trailing spaces
@@ -99,27 +99,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // add it to list
-        Collections.addAll(cities, cityArr);
-        Log.d(TAG, "getSelectedCities() called");
-        Log.d(TAG, "getSelectedCities() size: " + cities.size());
-        for (String city : cities) {
-            Log.d(TAG, "getSelectedCities: [" + city + "]");
+        Collections.addAll(items, cityArr);
+        Log.d(TAG, "getSelectedItems() called");
+        Log.d(TAG, "getSelectedItems() size: " + items.size());
+        for (String city : items) {
+            Log.d(TAG, "getSelectedItems: [" + city + "]");
         }
-        return cities;
+        return items;
     }
 
-    public ArrayList<String> getUnselectedCities(ArrayList<String> selectedCities) {
-        ArrayList<String> cities = new ArrayList<>();
-        for (String city : allCities) {
+    public ArrayList<String> getUnselectedItems(ArrayList<String> selectedCities) {
+        ArrayList<String> items = new ArrayList<>();
+        for (String city : allItems) {
             if (!selectedCities.contains(city)) {
-                cities.add(city);
+                items.add(city);
             }
         }
-        Log.d(TAG, "getUnselectedCities() called");
-        Log.d(TAG, "getUnselectedCities() size: " + cities.size());
-        for (String city : cities) {
-            Log.d(TAG, "getSelectedCities: [" + city + "]");
+        Log.d(TAG, "getUnselectedItems() called");
+        Log.d(TAG, "getUnselectedItems() size: " + items.size());
+        for (String city : items) {
+            Log.d(TAG, "getSelectedItems: [" + city + "]");
         }
-        return cities;
+        return items;
     }
 }
