@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setupAdapter(ArrayList<String> Items) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, Items);
+    private void setupAdapter(ArrayList<String> items) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, items);
         binding.multiview.setAdapter(adapter);
     }
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     setupAdapter(allItems);
 
                 } else if (text.contains(",") && text.endsWith(",")) {
-                    // get all selected city first
+                    // get all selected item first
                     ArrayList<String> selectedItems = getSelectedItems(text);
                     ArrayList<String> unSelectedItems = getUnselectedItems(selectedItems);
                     setupAdapter(unSelectedItems);
@@ -91,34 +91,34 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> items = new ArrayList<>();
 
         // split items
-        String[] cityArr = text.split(",");
+        String[] itemArr = text.split(",");
 
         // remove starting & trailing spaces
-        for (int i = 0; i < cityArr.length; i++) {
-            cityArr[i] = cityArr[i].trim();
+        for (int i = 0; i < itemArr.length; i++) {
+            itemArr[i] = itemArr[i].trim();
         }
 
         // add it to list
-        Collections.addAll(items, cityArr);
+        Collections.addAll(items, itemArr);
         Log.d(TAG, "getSelectedItems() called");
         Log.d(TAG, "getSelectedItems() size: " + items.size());
-        for (String city : items) {
-            Log.d(TAG, "getSelectedItems: [" + city + "]");
+        for (String item : items) {
+            Log.d(TAG, "getSelectedItems: [" + item + "]");
         }
         return items;
     }
 
     public ArrayList<String> getUnselectedItems(ArrayList<String> selectedCities) {
         ArrayList<String> items = new ArrayList<>();
-        for (String city : allItems) {
-            if (!selectedCities.contains(city)) {
-                items.add(city);
+        for (String item : allItems) {
+            if (!selectedCities.contains(item)) {
+                items.add(item);
             }
         }
         Log.d(TAG, "getUnselectedItems() called");
         Log.d(TAG, "getUnselectedItems() size: " + items.size());
-        for (String city : items) {
-            Log.d(TAG, "getSelectedItems: [" + city + "]");
+        for (String item : items) {
+            Log.d(TAG, "getSelectedItems: [" + item + "]");
         }
         return items;
     }
